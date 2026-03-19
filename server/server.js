@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, 'files')));
 // Configure a 'get' endpoint for data..
 app.get('/movies', function (req, res) {
   // Part 1: Remove the next line and replace with your code
-  const movies = [
+  const movies = [ //http://www.omdbapi.com/
     {
       "Title": "The Dark Knight",
       "Released": "2008-07-18",
