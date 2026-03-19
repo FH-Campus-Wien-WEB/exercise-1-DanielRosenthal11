@@ -9,26 +9,72 @@
         /* Part 3: Your styling goes here */
     </style>
     <script>
-        function reverseString(s) {
-            return s.split("").reverse().join("");
-        }
-
         window.onload = function () {
-            const xhr = new XMLHttpRequest()
+            const xhr = new XMLHttpRequest();
             xhr.onload = function () {
-                const bodyElement = document.querySelector("body")
+                const bodyElement = document.querySelector("body");
+                
                 if (xhr.status == 200) {
-		            /* Part 2: Build the HTML elements here and append them to the body */ 
-                    bodyElement.append(reverseString(xhr.responseText))
-                } else {
-                    bodyElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
-                }
-            }
-            xhr.open("GET", "/movies")
-            xhr.send()
-        }
-    </script>
+                    const movies = JSON.parse(xhr.responseText);
+                    
+                    movies.forEach(movie => {
+                        const article = document.createElement("article");
+                        article.className = "movie-card";
 
+                        const header = document.createElement("header");
+                        const title = document.createElement("h2");
+                        title.textContent = movie.Title;
+                        
+                        const ratings = document.createElement("p");
+                        ratings.className = "ratings";
+                        ratings.innerHTML = `<strong>IMDb:</strong> ${movie.imdbRating} | <strong>Metascore:</strong> ${movie.Metascore}`;
+                        
+                        header.append(title, ratings);
+
+                        const mainContent = document.createElement("div");
+                        mainContent.className = "movie-body";
+
+                        const poster = document.createElement("img");
+                        poster.src = movie.Poster;
+                        poster.alt = `Poster for ${movie.Title}`;
+                        poster.className = "movie-poster";
+
+                        const infoDiv = document.createElement("div");
+                        infoDiv.className = "movie-info";
+
+                        const hours = Math.floor(movie.Runtime / 60);
+                        const mins = movie.Runtime % 60;
+                        
+                        const meta = document.createElement("p");
+                        meta.innerHTML = `${movie.Released} &nbsp;|&nbsp; ${hours}h ${mins}m &nbsp;|&nbsp; ${movie.Genres.join(", ")}`;
+
+                        const plot = document.createElement("blockquote");
+                        plot.textContent = movie.Plot;
+
+                        const crewList = document.createElement("ul");
+                        crewList.innerHTML = `
+                            <li><strong>Director(s):</strong> ${movie.Directors.join(", ")}</li>
+                            <li><strong>Writer(s):</strong> ${movie.Writers.join(", ")}</li>
+                            <li><strong>Actors:</strong> ${movie.Actors.join(", ")}</li>
+                        `;
+
+                        infoDiv.append(meta, plot, crewList);
+                        mainContent.append(poster, infoDiv);
+                        
+                        article.append(header, mainContent);
+                        article.appendChild(document.createElement("hr"));
+
+                        bodyElement.append(article);
+                    });
+
+                } else {
+                    bodyElement.append("Daten konnten nicht geladen werden, Status " + xhr.status);
+                }
+            };
+            xhr.open("GET", "/movies");
+            xhr.send();
+        };
+    </script>
 </head>
 
 <body>

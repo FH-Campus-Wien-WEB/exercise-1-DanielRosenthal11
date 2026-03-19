@@ -23,20 +23,20 @@ app.get('/movies', function (req, res) {
       "imdbRating": 9.0
     },
     {
-      "Title": "Pulp Fiction",
-      "Released": "1994-10-14",
-      "Runtime": 154,
-      "Genres": ["Crime", "Drama"],
-      "Directors": ["Quentin Tarantino"],
-      "Writers": ["Quentin Tarantino", "Roger Avary"],
-      "Actors": ["John Travolta", "Uma Thurman", "Samuel L. Jackson"],
-      "Plot": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTItNjUzZi00MzRjLWE3ZjQtYmAwOGExM2RiMjQxXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-      "Metascore": 94,
-      "imdbRating": 8.9
+      "Title": "The Avengers",
+      "Released": "2012-05-04",
+      "Runtime": 143,
+      "Genres": ["Action", "Sci-Fi"],
+      "Directors": ["Joss Whedon"],
+      "Writers": ["Joss Whedon", "Zak Penn"],
+      "Actors": ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
+      "Plot": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+      "Poster": "https://image.tmdb.org/t/p/w300/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg", //changed the picture because the other wasn't working
+      "Metascore": 69,
+      "imdbRating": 8.0
     },
     {
-      "Title": "Interstellar", // best film :)
+      "Title": "Interstellar",
       "Released": "2014-11-07",
       "Runtime": 169,
       "Genres": ["Adventure", "Drama", "Sci-Fi"],
@@ -49,6 +49,9 @@ app.get('/movies', function (req, res) {
       "imdbRating": 8.6
     }
   ];
+  
+  // Send the array as valid JSON
+  res.json(movies);
   
   // Send the array as valid JSON
   res.json(movies);
